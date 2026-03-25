@@ -5,7 +5,7 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.iOS;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,9 +35,23 @@ public class PlayerController : MonoBehaviour
         }
     }
     // Update is called once per frame
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "Death")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            SceneManager.LoadScene("PlayScene_" + collision.name);
+        }
+    }
+    //{
+    //    SceneManager.LoadScene("PlayScene_" + collision.name);
+    //} 
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
-    //   if (collision.name == "door") 
+    //   if (collision.name == "Enemy") //  if (collision.name == "Door")
     //        Destroy(collision.gameObject); 
     //}
     void Update()
@@ -63,4 +77,7 @@ public class PlayerController : MonoBehaviour
         }
         transform.Translate(Vector3.right * movespeed * moveinput.x * Time.deltaTime);
     }
+    
+    
+
 }
